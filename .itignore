@@ -1,0 +1,15 @@
+# Backend
+taskflow-api/target/
+taskflow-api/.mvn/
+taskflow-api/mvnw
+taskflow-api/mvnw.cmd
+
+# Frontend
+taskflow-web/node_modules/
+taskflow-web/.next/
+taskflow-web/out/
+taskflow-web/.env.local
+
+# Divers
+.DS_Store
+.vscode/
