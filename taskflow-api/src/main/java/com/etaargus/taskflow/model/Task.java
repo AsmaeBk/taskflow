@@ -17,5 +17,5 @@ public class Task {
     private String description;
     private boolean completed;
 
-    private Long userId; // Link task to user (foreign key)
+    private Long userId; 
 }

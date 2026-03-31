@@ -3,6 +3,8 @@ package com.etaargus.taskflow.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.etaargus.taskflow.dto.TaskRequestDTO;
+import com.etaargus.taskflow.dto.TaskResponseDTO;
 import com.etaargus.taskflow.model.Task;
 import com.etaargus.taskflow.service.TaskService;
 
@@ -11,8 +13,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,28 +32,35 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getTasks(@RequestHeader("Authorization") String header) {
-        return taskService.getTaskList(header);
+    public List<TaskResponseDTO> getTasks(@RequestAttribute("userId") Long userId) {
+        return taskService.getTaskList(userId);
     }
 
     @PostMapping
-    public Task createTask(@RequestBody Task task, @RequestHeader("Authorization") String header) {
-        return taskService.saveTask(task, header);
+    public TaskResponseDTO createTask(@jakarta.validation.Valid @RequestBody TaskRequestDTO dto, @RequestAttribute("userId") Long userId) {
+        // Convert DTO to Entity
+        Task task = new Task();
+        task.setTitle(dto.getTitle());
+        task.setDescription(dto.getDescription());
+        task.setCompleted(dto.isCompleted());
+        task.setUserId(userId);
+        
+        return taskService.saveTask(task);
     }
     
     @PutMapping("/{id}")
-    public Task updateTask(
+    public TaskResponseDTO updateTask(
         @PathVariable Long id, 
         @RequestBody Task taskDetails,
-        @RequestHeader("Authorization") String header
+        @RequestAttribute("userId") Long userId
     ) {
-        // Pass the ID, the new data, and the header to your service
-        return taskService.updateTask(id, taskDetails, header);
+        // Pass the ID, the new data, and the user ID to your service
+        return taskService.updateTask(id, taskDetails, userId);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTask(@PathVariable Long id, @RequestHeader("Authorization") String header) {
+    public void deleteTask(@PathVariable Long id, @RequestAttribute("userId") Long userId) {
         // You can add logic here to verify the user owns the task before deleting
-        taskService.deleteTask(id);
+        taskService.deleteTask(id, userId);
     }
 }

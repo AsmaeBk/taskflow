@@ -24,13 +24,13 @@ body {
 
 body {
   margin: 0;
-  min-height: 100vh; 
+  min-height: 100vh;
   /* display: flex;
   justify-content: center;
   align-items: center;     
    */
 
-  font-family: cursive;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 * {
@@ -38,46 +38,125 @@ body {
   padding: 0;
   margin: 0;
 }
+
 /* Style for the login*/
-.login-body {
+.login-body,
+.auth-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  width: 100%;
+  background-color: white;
+}
+
+.auth-sidebar {
+  background-color: #1a1a1a;
+  /* Fallback solid color */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/wp13749700.jpg');
+  /* Use existing image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 300px;
+  color: white;
+}
+
+.auth-sidebar h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 900px) {
+
+  .login-body,
+  .auth-body {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-sidebar {
+    display: none;
+  }
+}
+
+.auth-main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  padding: 40px;
   width: 100%;
-  background-image: url('/wp13749700.jpg');
-  background-size: cover;
 }
 
 .login-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 400px; 
-  padding: 40px; 
-
-  background-color: rgba(255, 255, 255, 0.8);
-  
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-
-  
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
 }
 
-.login-container input {
-  border: 0px solid #e2e8f0;
-  background-color: #f8fafc;
-  padding: 14px 16px;
-  margin-bottom: 20px;
-  width: 300px;
-  border-radius: 4px;
+.auth-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 450px;
+  max-width: 1000px;
+  /* Stretched for register form */
+  text-align: left;
+}
 
+.auth-card h1,
+.login-container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.auth-card p,
+.login-container p {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.input-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.login-container input,
+.auth-card input {
+  border: 1px solid #eee;
+  background-color: white;
+  padding: 16px;
+  margin-bottom: 0px;
+  width: 100%;
+  max-width: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.login-container input:focus,
+.auth-card input:focus {
+  border-color: #d98b77;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(217, 139, 119, 0.1);
 }
 
 .login-container input:focus {
@@ -93,14 +172,23 @@ body {
 }
 
 
-.login-container button {
-  background-color: chocolate;
+.auth-submit-btn {
+  background-color: #1a1a1a;
   color: white;
-  padding: 14px 16px;
+  padding: 16px;
   border: none;
-  border-radius: 4px;
+  font-weight: 600;
+  border-radius: 12px;
   cursor: pointer;
   width: 100%;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+  font-size: 1rem;
+}
+
+.auth-submit-btn:hover {
+  background-color: #d98b77;
+  /* Terracotta hover */
 }
 
 /* TaskFlow Navigation */
@@ -110,21 +198,23 @@ body {
   justify-content: space-between;
   align-items: center;
 
-  background: linear-gradient(  
-    190deg, 
-    #f2f5f2 0%,    /* Soft Sage */
-    #fafaf7 50%,   /* Creamy Sand */
-    #f8ddd6 100%   /* Soft Terracotta */
-  );
+  background: linear-gradient(190deg,
+      #f2f5f2 0%,
+      /* Soft Sage */
+      #fafaf7 50%,
+      /* Creamy Sand */
+      #f8ddd6 100%
+      /* Soft Terracotta */
+    );
 
-  padding: 1rem; 
+  padding: 1rem;
 }
 
-.task-body{
+.task-body {
   padding: 2rem;
 }
 
-.task-container{
+.task-container {
   /* margin: auto;
  
   display: grid;
@@ -136,9 +226,10 @@ body {
   gap: 16px;
   transition: all 0.5s ease;
 }
+
 .task-card {
   display: flex;
-  align-items: center ;
+  align-items: center;
   gap: 1rem;
   /* background-color: rgba(255, 255, 255, 0.8); */
   /* border-radius: 10px; */
@@ -147,18 +238,21 @@ body {
 
   /*Autumn Colors */
   background: rgba(255, 255, 255, 0.9);
-  border-left: 6px solid #d98b77; /* Terracotta accent */
+  border-left: 6px solid #d98b77;
+  /* Terracotta accent */
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease;
-  font-family: cursive;
+  font-family: 'Inter', system-ui, sans-serif;
   transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
 }
 
 .task-card[style*="opacity: 0.6"] {
-  background-color: #f9f8f3; /* Even lighter sand color */
-  border-left-style: dashed; /* Optional: change the border to dashed when done */
+  background-color: #f9f8f3;
+  /* Even lighter sand color */
+  border-left-style: dashed;
+  /* Optional: change the border to dashed when done */
 }
 
 .task-card:hover {
@@ -168,7 +262,8 @@ body {
 
 .task-card p {
   margin: 0;
-  color: #5d4037; /* Dark brown for readability */
+  color: #5d4037;
+  /* Dark brown for readability */
   font-weight: 500;
 }
 
@@ -178,7 +273,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  
+
   /* Layout */
   min-height: 200px;
   padding: 40px;
@@ -186,10 +281,13 @@ body {
   max-width: 600px;
 
   /* Autumn Styling */
-  background-color: rgba(232, 228, 201, 0.3); /* Soft Creamy Sand */
-  border: 2px dashed #b4c7b1; /* Muted Sage border */
+  background-color: rgba(232, 228, 201, 0.3);
+  /* Soft Creamy Sand */
+  border: 2px dashed #b4c7b1;
+  /* Muted Sage border */
   border-radius: 20px;
-  color: #5d4037; /* Dark Brown text */
+  color: #5d4037;
+  /* Dark Brown text */
 }
 
 .empty-state p {
@@ -197,8 +295,10 @@ body {
   margin-bottom: 20px;
   font-style: italic;
 }
+
 .empty-state-btn {
-  background-color: #d98b77; /* Terracotta */
+  background-color: #d98b77;
+  /* Terracotta */
   color: white;
   padding: 10px 25px;
   border-radius: 50px;
@@ -207,6 +307,7 @@ body {
   font-weight: 600;
   transition: background 0.3s ease;
 }
+
 .empty-state-btn:hover {
   background-color: #bf7361;
 }
@@ -216,9 +317,9 @@ body {
   -webkit-appearance: none;
   width: 25px;
   height: 25px;
-  
+
   /* Use the variable! Fallback to sage if it's missing */
-  border: 2px solid var(--task-accent, #b4c7b1); 
+  border: 2px solid var(--task-accent, #b4c7b1);
   border-radius: 6px;
   background-color: white;
   cursor: pointer;
@@ -228,7 +329,7 @@ body {
 
 .custom-checkbox:checked {
   /* The box fills with the specific task color */
-  background-color: var(--task-accent); 
+  background-color: var(--task-accent);
   border-color: var(--task-accent);
 }
 
@@ -253,11 +354,11 @@ body {
 .task-done {
   /* This creates the "bar" through the text */
   text-decoration: line-through;
-  
+
   /* These make the task look less important than active ones */
-  color: #a1887f; 
+  color: #a1887f;
   opacity: 0.6;
-  
+
   /* Adds a smooth transition when we click the checkbox */
   transition: all 0.3s ease;
 }
@@ -265,11 +366,13 @@ body {
 .delete-btn {
   background: none;
   border: none;
-  color: #d98b77; /* Terracotta */
+  color: #d98b77;
+  /* Terracotta */
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
-  opacity: 0; /* Hidden by default */
+  opacity: 0;
+  /* Hidden by default */
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -279,7 +382,8 @@ body {
 }
 
 .delete-btn:hover {
-  color: #bf7361; /* Darker terracotta on hover */
+  color: #bf7361;
+  /* Darker terracotta on hover */
   transform: scale(1.2);
 }
 
@@ -310,7 +414,8 @@ body {
 .new-task-form input {
   flex: 1;
   padding: 12px 15px;
-  border: 2px solid #e8e4c9; /* Sand */
+  border: 2px solid #e8e4c9;
+  /* Sand */
   border-radius: 8px;
   outline: none;
   font-family: inherit;
@@ -318,7 +423,39 @@ body {
 }
 
 .new-task-form input:focus {
-  border-color: #d98b77; /* Terracotta focus */
+  border-color: #d98b77;
+  /* Terracotta focus */
+}
+
+/* Mobile Responsiveness for Task Form */
+@media (max-width: 600px) {
+  .new-task-form {
+    flex-direction: column;
+    padding: 0 10px;
+  }
+
+  .task-body {
+    padding: 1rem;
+  }
+
+  .task-card {
+    padding: 12px;
+    gap: 0.5rem;
+  }
+
+  .task-card h3 {
+    font-size: 1rem;
+  }
+
+  .task-card p {
+    font-size: 0.9rem;
+  }
+
+  .delete-btn {
+    opacity: 1;
+    /* Always show delete button on touch devices */
+    font-size: 20px;
+  }
 }
 
 .add-btn {
@@ -343,50 +480,6 @@ a {
 }
 
 a:hover {
-  color: #4a90e2; /* Darker terracotta on hover */
-}
-
-/* Register */
-.auth-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-  background-image: url('/wp13749700.jpg');
-  background-size: cover;
-}
-
-.auth-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 400px; 
-  padding: 40px; 
-
-  background-color: rgba(255, 255, 255, 0.8);
-  
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-
-  
-}
-
-.add-btn {
-  background-color: #d98b77;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  width: 80px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: transform 0.2s ease;
-  margin: 20px 0;
-  padding: 10px ;
+  color: #4a90e2;
+  /* Darker terracotta on hover */
 }

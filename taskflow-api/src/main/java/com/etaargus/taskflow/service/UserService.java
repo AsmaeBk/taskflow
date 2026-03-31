@@ -1,9 +1,10 @@
 package com.etaargus.taskflow.service;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.etaargus.taskflow.dto.LoginResponseDTO;
+import com.etaargus.taskflow.dto.UserResponseDTO;
 import com.etaargus.taskflow.model.User;
 import com.etaargus.taskflow.repository.UserRepository;
 import com.etaargus.taskflow.security.JwtUtil;
@@ -24,16 +25,15 @@ public class UserService {
         this.jwtUtil = jwtUtil;
     }
     
-    public ResponseEntity<?> register(User user) {
-
+    public UserResponseDTO register(User user) {
         // Encode the password before saving!
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
 
-        return ResponseEntity.ok("User registered successfully!");
+        return new UserResponseDTO(savedUser.getId(), savedUser.getEmail());
     }
 
-    public String login(User user) {
+    public LoginResponseDTO login(User user) {
         User userDB = userRepository.findByEmail(user.getEmail());
         
         if (userDB == null) {
@@ -46,7 +46,8 @@ public class UserService {
         }
 
         // if login successful → generate JWT token
-        return jwtUtil.generateToken(userDB.getId());
+        String token = jwtUtil.generateToken(userDB.getId());
+        return new LoginResponseDTO(token);
     }
     
 }

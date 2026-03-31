@@ -2,12 +2,12 @@ package com.etaargus.taskflow.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.etaargus.taskflow.dto.LoginResponseDTO;
+import com.etaargus.taskflow.dto.UserResponseDTO;
 import com.etaargus.taskflow.model.User;
 import com.etaargus.taskflow.service.UserService;
 
@@ -23,13 +23,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody User entity) {  
-        userService.register(entity);      
-        return entity;
+    public UserResponseDTO register(@RequestBody User entity) {  
+        return userService.register(entity);
     }
 
     @PostMapping("/login")
-    public String postMethodName(@RequestBody User entity) {
+    public LoginResponseDTO login(@RequestBody User entity) {
         return userService.login(entity);
     }
     

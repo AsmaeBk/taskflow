@@ -154,6 +154,12 @@ export default function Home() {
       console.error("Update failed:", error);
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    window.location.href = '/login';
+  };
   const taskList = sortedTasks.map(task => {
     const accentColor = getTaskColor(task.id);
     const isEditing = editingId === task.id;
@@ -205,8 +211,26 @@ export default function Home() {
   
 return (
   <div className="task-body">
-    {/* hide this title if no tasks */}
-    {tasks.length > 0 && <h1>My Tasks🍃</h1>}
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+      <h1 style={{ visibility: tasks.length > 0 ? 'visible' : 'hidden', margin: 0 }}>My Tasks🍃</h1>
+      <button 
+        onClick={handleLogout} 
+        style={{ 
+          padding: '10px 20px', 
+          backgroundColor: '#1a1a1a', 
+          color: 'white', 
+          border: 'none', 
+          borderRadius: '8px', 
+          cursor: 'pointer', 
+          fontWeight: '600',
+          transition: 'background 0.3s ease'
+        }}
+        onMouseOver={(e) => e.target.style.backgroundColor = '#d98b77'}
+        onMouseOut={(e) => e.target.style.backgroundColor = '#1a1a1a'}
+      >
+        Sign Out
+      </button>
+    </div>
     
     {/* 1. Only show the container if we have tasks */}
     <main className={tasks.length > 0 ? "task-container" : "empty-state"}>
