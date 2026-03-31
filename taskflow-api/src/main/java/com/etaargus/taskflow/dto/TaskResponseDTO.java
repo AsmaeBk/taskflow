@@ -14,7 +14,6 @@ public class TaskResponseDTO {
         this.completed = completed;
     }
 
-    // getters
     public Long getId() {
         return id;
     }

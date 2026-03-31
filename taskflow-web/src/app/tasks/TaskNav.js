@@ -5,7 +5,6 @@ export default function TaskNav() {
    const [email, setEmail] = useState('');
 
   useEffect(() => {
-    // Retrieve the email when the component loads
     const savedEmail = localStorage.getItem('email');
     if (savedEmail) {
       setEmail(savedEmail);

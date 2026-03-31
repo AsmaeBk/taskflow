@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "users") // avoid reserved word "user"
+@Table(name = "users")
 public class User {
 
     @Id

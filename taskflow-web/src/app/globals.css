@@ -18,18 +18,11 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  /* background-color: mistyrose;
-  background-size: cover; */
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  /* display: flex;
-  justify-content: center;
-  align-items: center;     
-   */
-
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
@@ -39,7 +32,6 @@ body {
   margin: 0;
 }
 
-/* Style for the login*/
 .login-body,
 .auth-body {
   display: grid;
@@ -51,9 +43,7 @@ body {
 
 .auth-sidebar {
   background-color: #1a1a1a;
-  /* Fallback solid color */
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/wp13749700.jpg');
-  /* Use existing image */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -105,7 +95,6 @@ body {
   width: 100%;
   min-width: 450px;
   max-width: 1000px;
-  /* Stretched for register form */
   text-align: left;
 }
 
@@ -167,10 +156,7 @@ body {
 .login-container p {
   color: #333;
   margin: 20px;
-
-
 }
-
 
 .auth-submit-btn {
   background-color: #1a1a1a;
@@ -188,25 +174,17 @@ body {
 
 .auth-submit-btn:hover {
   background-color: #d98b77;
-  /* Terracotta hover */
 }
 
-/* TaskFlow Navigation */
-/* make it transparent */
 .taskflow-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   background: linear-gradient(190deg,
       #f2f5f2 0%,
-      /* Soft Sage */
       #fafaf7 50%,
-      /* Creamy Sand */
       #f8ddd6 100%
-      /* Soft Terracotta */
     );
-
   padding: 1rem;
 }
 
@@ -215,11 +193,6 @@ body {
 }
 
 .task-container {
-  /* margin: auto;
- 
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 1fr); */
-
   display: flex;
   margin-top: 50px;
   flex-direction: column;
@@ -231,28 +204,18 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  /* background-color: rgba(255, 255, 255, 0.8); */
-  /* border-radius: 10px; */
-  /* padding: 2rem; */
-  /* box-shadow: 0 4px 6px rgba(0,0,0,0.1); */
-
-  /*Autumn Colors */
   background: rgba(255, 255, 255, 0.9);
   border-left: 6px solid #d98b77;
-  /* Terracotta accent */
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
   font-family: 'Inter', system-ui, sans-serif;
   transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
 }
 
 .task-card[style*="opacity: 0.6"] {
   background-color: #f9f8f3;
-  /* Even lighter sand color */
   border-left-style: dashed;
-  /* Optional: change the border to dashed when done */
 }
 
 .task-card:hover {
@@ -263,7 +226,6 @@ body {
 .task-card p {
   margin: 0;
   color: #5d4037;
-  /* Dark brown for readability */
   font-weight: 500;
 }
 
@@ -273,21 +235,14 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-
-  /* Layout */
   min-height: 200px;
   padding: 40px;
   margin: 40px auto;
   max-width: 600px;
-
-  /* Autumn Styling */
   background-color: rgba(232, 228, 201, 0.3);
-  /* Soft Creamy Sand */
   border: 2px dashed #b4c7b1;
-  /* Muted Sage border */
   border-radius: 20px;
   color: #5d4037;
-  /* Dark Brown text */
 }
 
 .empty-state p {
@@ -298,7 +253,6 @@ body {
 
 .empty-state-btn {
   background-color: #d98b77;
-  /* Terracotta */
   color: white;
   padding: 10px 25px;
   border-radius: 50px;
@@ -317,8 +271,6 @@ body {
   -webkit-appearance: none;
   width: 25px;
   height: 25px;
-
-  /* Use the variable! Fallback to sage if it's missing */
   border: 2px solid var(--task-accent, #b4c7b1);
   border-radius: 6px;
   background-color: white;
@@ -328,7 +280,6 @@ body {
 }
 
 .custom-checkbox:checked {
-  /* The box fills with the specific task color */
   background-color: var(--task-accent);
   border-color: var(--task-accent);
 }
@@ -341,25 +292,12 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* animation: pop 0.2s ease-out forwards;
-  will-change: transform; */
 }
 
-/* @keyframes pop {
-  0% { transform: translate(-50%, -50%) scale(0); }
-  70% { transform: translate(-50%, -50%) scale(1.2); }
-  100% { transform: translate(-50%, -50%) scale(1); }
-} */
-
 .task-done {
-  /* This creates the "bar" through the text */
   text-decoration: line-through;
-
-  /* These make the task look less important than active ones */
   color: #a1887f;
   opacity: 0.6;
-
-  /* Adds a smooth transition when we click the checkbox */
   transition: all 0.3s ease;
 }
 
@@ -367,23 +305,19 @@ body {
   background: none;
   border: none;
   color: #d98b77;
-  /* Terracotta */
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
   opacity: 0;
-  /* Hidden by default */
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* Show the button when the card is hovered */
 .task-card:hover .delete-btn {
   opacity: 1;
 }
 
 .delete-btn:hover {
   color: #bf7361;
-  /* Darker terracotta on hover */
   transform: scale(1.2);
 }
 
@@ -399,7 +333,6 @@ body {
   padding: 0;
 }
 
-/* Subtle feedback when hovering over text to show it's editable */
 .task-card p:not(.task-done):hover {
   color: var(--task-accent);
   text-decoration: underline dotted;
@@ -415,7 +348,6 @@ body {
   flex: 1;
   padding: 12px 15px;
   border: 2px solid #e8e4c9;
-  /* Sand */
   border-radius: 8px;
   outline: none;
   font-family: inherit;
@@ -424,10 +356,8 @@ body {
 
 .new-task-form input:focus {
   border-color: #d98b77;
-  /* Terracotta focus */
 }
 
-/* Mobile Responsiveness for Task Form */
 @media (max-width: 600px) {
   .new-task-form {
     flex-direction: column;
@@ -453,7 +383,6 @@ body {
 
   .delete-btn {
     opacity: 1;
-    /* Always show delete button on touch devices */
     font-size: 20px;
   }
 }
@@ -481,5 +410,4 @@ a {
 
 a:hover {
   color: #4a90e2;
-  /* Darker terracotta on hover */
 }

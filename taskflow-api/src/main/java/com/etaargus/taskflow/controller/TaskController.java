@@ -38,29 +38,25 @@ public class TaskController {
 
     @PostMapping
     public TaskResponseDTO createTask(@jakarta.validation.Valid @RequestBody TaskRequestDTO dto, @RequestAttribute("userId") Long userId) {
-        // Convert DTO to Entity
         Task task = new Task();
         task.setTitle(dto.getTitle());
         task.setDescription(dto.getDescription());
         task.setCompleted(dto.isCompleted());
         task.setUserId(userId);
-        
         return taskService.saveTask(task);
     }
     
     @PutMapping("/{id}")
     public TaskResponseDTO updateTask(
-        @PathVariable Long id, 
+        @PathVariable Long id,
         @RequestBody Task taskDetails,
         @RequestAttribute("userId") Long userId
     ) {
-        // Pass the ID, the new data, and the user ID to your service
         return taskService.updateTask(id, taskDetails, userId);
     }
 
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id, @RequestAttribute("userId") Long userId) {
-        // You can add logic here to verify the user owns the task before deleting
         taskService.deleteTask(id, userId);
     }
 }

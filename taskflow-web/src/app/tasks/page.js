@@ -11,23 +11,21 @@ export default function Home() {
   const [newDesc, setNewDesc] = useState("");
 
   const autumnPalette = [
-    '#b4c7b1', // Sage
-    '#d98b77', // Terracotta
-    '#e8e4c9', // Sand
-    '#a1887f', // Medium Latte
-    '#f5f5dc'  // Beige
+    '#b4c7b1',
+    '#d98b77',
+    '#e8e4c9',
+    '#a1887f',
+    '#f5f5dc'
   ];
 
   const handleAddTask = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     
-    // We send the object exactly as your Java 'Task' class expects it
     const taskData = {
       title: newTitle,
       description: newDesc,
       completed: false
-      // userId is usually handled by the Backend via the JWT token!
     };
 
     const response = await fetch('http://localhost:8080/tasks', {
@@ -46,8 +44,6 @@ export default function Home() {
       setNewDesc("");
     }
   };
-  // Function to pick a color based on the task ID
-  // (This ensures the color stays the same for that task every time you refresh)
   const getTaskColor = (id) => {
     return autumnPalette[id % autumnPalette.length];
   };
@@ -90,7 +86,6 @@ export default function Home() {
         body: JSON.stringify({ ...task, completed: !task.completed })
       });
       if (response.ok) {
-        // Update the task's completed status in the UI
         setTasks(prevTasks => 
           prevTasks.map(t => 
             t.id === task.id ? { ...t, completed: !t.completed } : t
@@ -118,7 +113,6 @@ export default function Home() {
       });
 
       if (response.ok) {
-        // Remove the task from the screen immediately
         setTasks(prev => prev.filter(t => t.id !== id));
       }
     } catch (error) {
@@ -148,7 +142,7 @@ export default function Home() {
 
       if (response.ok) {
         setTasks(prev => prev.map(t => t.id === task.id ? updatedTask : t));
-        setEditingId(null); // Close the input field
+        setEditingId(null);
       }
     } catch (error) {
       console.error("Update failed:", error);
@@ -178,12 +172,10 @@ export default function Home() {
         />
 
         <div className="task-content">
-          {/* Render Title */}
           <h3 className={task.completed ? "task-done" : ""}>
             {task.title || "Untitled Task"}
           </h3>
 
-          {/* Render Description or Edit Input */}
           {isEditing ? (
             <input 
               className="edit-input"
@@ -232,7 +224,6 @@ return (
       </button>
     </div>
     
-    {/* 1. Only show the container if we have tasks */}
     <main className={tasks.length > 0 ? "task-container" : "empty-state"}>
       <form onSubmit={handleAddTask} className="new-task-form">
         <input 
@@ -252,8 +243,6 @@ return (
       {loading ? (
         <p>Loading your tasks... 🍃</p>
       ) : tasks.length > 0 ? (
-        /* 2. Render the array directly here. 
-           No extra wrapper div needed inside the main! */
         taskList
       ) : (
         <p>No tasks found. Time to take a break!</p>
@@ -262,14 +251,4 @@ return (
     </main>
   </div>
 );
-  // return (
-  //   <div className="task-body">
-  //     <h1>My Tasks</h1>
-  //     <main className={taskList.length > 0 ? "task-container" : ""} >
-  //      <div className={taskList.length > 0 ?"task-card" : ""} >
-  //       {loading ? 'Loading tasks...' : taskList.length > 0 ? taskList : 'No tasks found.'}
-  //      </div> 
-  //     </main>
-  //   </div>
-  // );
 }

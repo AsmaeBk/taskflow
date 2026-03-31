@@ -31,11 +31,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         Long userId = null;
         String jwt = null;
 
-        // 1. Extract token from header
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             
-            // 2. We use our utility to check if it's valid, and if so, grab the ID.
             if (jwtUtil.isValid(jwt)) {
                 try {
                     userId = jwtUtil.extractUserId(jwt);
@@ -45,26 +43,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
         }
 
-        // 3. If we found a valid userId and the context isn't already authenticated...
         if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            // We create an Authentication object. 
-            // In a full app, we might load the UserDetails from DB here. 
-            // For performance, since the ID is in the token, we just use the ID directly!
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                     userId, null, new ArrayList<>());
                     
             usernamePasswordAuthenticationToken
                     .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     
-            // Pass it to Spring Security! This tells Spring "this user is authenticated!"
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             
-            // Also, setting it as an attribute allows controllers to easily grab it using @RequestAttribute
             request.setAttribute("userId", userId);
         }
         
-        // Let the request continue to the controller
         chain.doFilter(request, response);
     }
 }
