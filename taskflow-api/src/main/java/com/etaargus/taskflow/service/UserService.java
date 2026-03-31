@@ -1,5 +1,6 @@
 package com.etaargus.taskflow.service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +24,13 @@ public class UserService {
         this.jwtUtil = jwtUtil;
     }
     
-    public void register(User user) {
-        // encode password before saving
+    public ResponseEntity<?> register(User user) {
+
+        // Encode the password before saving!
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+
+        return ResponseEntity.ok("User registered successfully!");
     }
 
     public String login(User user) {
